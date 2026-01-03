@@ -1,59 +1,49 @@
 import streamlit as st
-import base64
-from pathlib import Path
 
-st.set_page_config(page_title="Happy Birthday Nurul 💖", layout="centered")
+st.set_page_config(page_title="Happy Birthday 💖", layout="centered")
 
-# Fungsi load file
-def load_file(path):
-    with open(path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
-
-bg = load_file("background.jpg")
-music = load_file("lover.mp3")
-
-html_code = f"""
+html = """
 <style>
-body {{
-    margin:0;
-    background:url("data:image/jpg;base64,{bg}") center/cover no-repeat fixed;
-    font-family:'Pacifico',cursive;
-}}
-.paper {{
-    max-width:760px;
-    margin:40px auto;
-    padding:40px;
-    background:#c9a36a;
-    background-image:radial-gradient(rgba(0,0,0,.15) 1px,transparent 0);
-    background-size:6px 6px;
-    border-radius:14px;
-    box-shadow:0 12px 30px rgba(0,0,0,.4);
-    color:#4b2e1f;
-    font-size:20px;
-    line-height:1.8;
-}}
-.signature {{
-    text-align:right;
-    margin-top:25px;
-}}
-.float {{
-    position:fixed;
-    top:-50px;
-    font-size:24px;
-    animation:fall linear forwards;
-    pointer-events:none;
-}}
-@keyframes fall {{
-    to {{
-        transform:translateY(110vh) rotate(360deg);
-        opacity:0;
-    }}
-}}
+body {
+  background: linear-gradient(120deg, #ffecd2, #fcb69f);
+  font-family: 'Comic Sans MS', cursive;
+}
+.paper {
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #c9a36a;
+  background-image: radial-gradient(rgba(0,0,0,.15) 1px, transparent 0);
+  background-size: 6px 6px;
+  border-radius: 15px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.4);
+  color: #4b2e1f;
+  font-size: 20px;
+  line-height: 1.8;
+  animation: fadeIn 2s ease;
+}
+.signature {
+  text-align: right;
+  margin-top: 25px;
+}
+.float {
+  position: fixed;
+  top: -50px;
+  font-size: 26px;
+  animation: fall linear forwards;
+  pointer-events: none;
+}
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
 </style>
-
-<audio autoplay loop>
-  <source src="data:audio/mp3;base64,{music}" type="audio/mp3">
-</audio>
 
 <div class="paper">
 <p>
@@ -83,15 +73,19 @@ Salam hangat,<br>Gilfan
 </div>
 
 <script>
-setInterval(() => {{
+setInterval(() => {
   const e = document.createElement("div");
   e.className = "float";
-  e.innerHTML = ["🌸","🌼","🌺","🌷","💐","❤️","💖","💗"][Math.floor(Math.random()*8)];
+  e.innerHTML = ["❤️","💖","💗","💐","🌸","🌼"][Math.floor(Math.random()*6)];
   e.style.left = Math.random()*100 + "vw";
   e.style.animationDuration = (3 + Math.random()*4) + "s";
   document.body.appendChild(e);
   setTimeout(() => e.remove(), 7000);
-}}, 300);
+}, 300);
+</script>
+"""
+
+st.markdown(html, unsafe_allow_html=True)
 </script>
 """
 
